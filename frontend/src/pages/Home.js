@@ -2,15 +2,33 @@ import React from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import styled from 'styled-components';
 
-const Form = styled.form`
+const Container = styled.div`
   margin: 100px auto;
-  gap: 10px;
+  display: flex;
+  // gap: 40px;
+  flex-direction: column;
+  align-items: center;
+
+  & h2 {
+    text-align: center;
+  }
+`;
+
+const Welcome = styled.h2`
+  margin-bottom: 40px;
+  & span {
+    color: mediumslateblue;
+  }
+`;
+
+const Form = styled.form`
+  gap: 12px;
   display: flex;
   flex-direction: column;
   border: 1px solid #eee;
   padding: 20px;
-  border-radius: 4px;
-  max-width: 300px;
+  border-radius: 3px;
+  width: 280px;
 
   & svg {
     align-self: center;
@@ -19,17 +37,29 @@ const Form = styled.form`
     margin-bottom: 20px;
   }
 
+  & label {
+    text-align: center;
+  }
+
   &:focus {
     background: red;
   }
 `;
 
+const Input = styled.input`
+  border: 1px solid #bbb;
+  padding: 6px 10px;
+  border-radius: 3px;
+  font-size: 1rem;
+`;
+
 const Start = styled.button`
   border: none;
   background-color: royalblue;
-  border-radius: 4px;
-  padding: 8px 0;
+  border-radius: 3px;
+  padding: 8px;
   color: white;
+  font-size: 1rem;
 
   &:hover {
     cursor: pointer;
@@ -37,29 +67,43 @@ const Start = styled.button`
   }
 `;
 
-const Input = styled.input`
-  border: 1px solid #bbb;
-  padding: 6px;
-  border-radius: 4px;
-`;
-
 const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username } = e.target;
-    
-    if (!username.length) return;
 
-    const user = username.value;
+    if (!username.value.length) return;
+
+    const user = JSON.stringify({
+      name: username.value,
+      tasks: [],
+    });
+
     localStorage.setItem('user', user);
   };
 
   return (
-    <Form onSubmit={ handleSubmit }>
-      <FaUserCircle />
-      <Input autoFocus type="text" id="username" />
-      <Start>Começar!</Start>
-    </Form>
+    <Container>
+      <Welcome>
+        Welcome to
+        <span> BetterTasks!</span>
+      </Welcome>
+      <Form onSubmit={ handleSubmit }>
+        <FaUserCircle />
+        <label htmlFor="">
+          Let's start!
+          <br />
+          Who are you?
+        </label>
+        <Input
+          autoFocus
+          type="text"
+          id="username"
+          placeholder="Your name"
+        />
+        <Start>Start</Start>
+      </Form>
+    </Container>
   );
 };
 
