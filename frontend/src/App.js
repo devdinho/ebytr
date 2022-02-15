@@ -1,12 +1,16 @@
-import './index.css';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Form from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import './index.css';
 
 function App() {
   return (
-    <div className="App">
-      <Form />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={ <Form /> } />
+        <Route path="/dashboard" element={ <Dashboard /> } />
+      </Routes>
+    </Router>
   );
 }
 

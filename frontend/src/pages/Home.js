@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -68,6 +69,7 @@ const Start = styled.button`
 `;
 
 const Home = () => {
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username } = e.target;
@@ -80,7 +82,14 @@ const Home = () => {
     });
 
     localStorage.setItem('user', user);
+
+    navigate('/dashboard');
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (user) navigate('/dashboard');
+  });
 
   return (
     <Container>
