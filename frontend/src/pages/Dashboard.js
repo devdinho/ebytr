@@ -2,13 +2,27 @@ import React, { useEffect, useState } from 'react';
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
+  // const [task, setTask] = useState({});
 
   useEffect(() => {
-    console.log('Dashboard');
-  })
+    const user = JSON.parse(localStorage.getItem('user'));
+    setTasks(user.tasks);
+  }, []);
 
   return (
-    <h2>Dashboard</h2>
+    <ul>
+      {
+        tasks.map((name, description) => {
+          return (
+            <>
+              <li>{ name }</li>
+              <li>{ description }</li>
+            </>
+          )
+        })
+      }
+    </ul>
+    
   );
 };
 
